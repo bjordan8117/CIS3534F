@@ -1,23 +1,43 @@
 #!/usr/bin/env python3
 #networkFileRW.py
-#Pamela Brauda
+#Brian Jordan
 #Thursday, March 3, 2022
 #Update routers and switches;
 #read equipment from a file, write updates & errors to file
 
 ##---->>>> Use a try/except clause to import the JSON module
 
+try:
+    import json
+
+except ImportError:
+        print("Couldn't find file")
 
 
 ##---->>>> Create file constants for the file names; file constants can be reused
+
+FILENAME_ONE = "equip_r.txt"
+FILENAME_TWO = "equip_s.txt"
+FILENAME_THREE = "updated_s.txt"
+FILENAME_FOUR = "errors_s.txt"
+
+
 ##         There are 2 files to read this program: equip_r.txt and equip_s.txt
+
+with open(FILENAME_ONE)as f:
+    contentsOne = f.read()
+
+with open(FILENAME_TWO) as g:
+    contentsTwo = g.read()
+
+
+
 ##         There are 2 files to write in this program: updated.txt and errors.txt
-      
 
 
 
 
-#prompt constants
+      #prompt constants
 UPDATE = "\nWhich device would you like to update "
 QUIT = "(enter x to quit)? "
 NEW_IP = "What is the new IP address (111.111.111.111) "
@@ -60,6 +80,12 @@ def getValidIP(invalidIPCount, invalidIPAddresses):
 def main():
 
     ##---->>>> open files here
+    with open("equip_r.txt")as f:
+        routers = json.load(f)
+
+    with open("equip_s.txt") as g:
+        switches = json.load(g)
+         
 
 
 
@@ -67,19 +93,25 @@ def main():
     #dictionaries
     ##---->>>> read the routers and addresses into the router dictionary
 
-    routers = {}
+    
+    
+      
+##---->>>> read the switches and addresses into the switches dictionary
 
 
-    ##---->>>> read the switches and addresses into the switches dictionary
-
-    switches = {}
 
 
     #the updated dictionary holds the device name and new ip address
     updated = {}
+    with open(FILENAME_FOUR, "w") as file:
+        file.write(str(updated))
+        
 
     #list of bad addresses entered by the user
     invalidIPAddresses = []
+    with open(FILENAME_FOUR, "w") as file:
+        file.write(str(invalidIPAddresses))
+        
 
     #accumulator variables
     devicesUpdatedCount = 0
